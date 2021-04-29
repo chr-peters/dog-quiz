@@ -1,0 +1,5 @@
+venv/
+*.egg-info/
+
+# ignore all config files
+*.env
