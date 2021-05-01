@@ -14,7 +14,9 @@ def test_create_app():
 
     # test with config from env vars
     os.environ["SECRET_KEY"] = "another-secret"
+    os.environ["DOG_API_KEY"] = "some-key"
 
     app = create_app()
 
     assert app.secret_key == "another-secret"
+    assert app.config["DOG_API_KEY"] == "some-key"
