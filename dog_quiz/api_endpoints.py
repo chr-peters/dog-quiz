@@ -1,6 +1,8 @@
 import random
+from json.decoder import JSONDecodeError
 
 from flask import current_app, json
+from requests.exceptions import HTTPError
 
 from .dog_api import DogAPIConnector
 
@@ -8,9 +10,19 @@ from .dog_api import DogAPIConnector
 def get_quiz():
     api_connector = DogAPIConnector(API_KEY=current_app.config["DOG_API_KEY"])
 
-    breeds = api_connector.get_all_breeds()
+    try:
+        breeds = api_connector.get_all_breeds()
+    except (HTTPError, JSONDecodeError):
+        response = json.jsonify({"message": "Could not fetch breeds!"})
+        response.status_code = 503
+        return response
 
-    chosen_breeds = random.sample(breeds, k=10)
+    try:
+        chosen_breeds = random.sample(breeds, k=10)
+    except ValueError:
+        response = json.jsonify({"message": "Could not fetch breeds!"})
+        response.status_code = 503
+        return response
 
     names = {cur_breed.name for cur_breed in breeds}
 

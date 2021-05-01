@@ -40,7 +40,7 @@ def test_get_quiz(client: FlaskClient, breeds_response_long):
 
     assert response.status_code == 200
 
-    response_list = response.json
+    response_list = response.get_json()
     assert len(response_list) == 10
 
     test_names = [
@@ -78,3 +78,35 @@ def test_list_breeds(breeds_response):
             img_url="https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg",
         ),
     }
+
+
+@responses.activate
+def test_server_error(client: FlaskClient):
+    responses.add(responses.GET, "https://api.thedogapi.com/v1/breeds", status=500)
+
+    response = client.get("/api/get-quiz")
+
+    assert response.status_code == 503
+    assert "message" in response.get_json().keys()
+
+
+@responses.activate
+def test_empty_response(client: FlaskClient):
+    responses.add(responses.GET, "https://api.thedogapi.com/v1/breeds")
+
+    response = client.get("/api/get-quiz")
+
+    assert response.status_code == 503
+    assert "message" in response.get_json().keys()
+
+
+@responses.activate
+def test_not_enough_breeds(client: FlaskClient, breeds_response):
+    responses.add(
+        responses.GET, "https://api.thedogapi.com/v1/breeds", json=breeds_response
+    )
+
+    response = client.get("/api/get-quiz")
+
+    assert response.status_code == 503
+    assert "message" in response.get_json().keys()
