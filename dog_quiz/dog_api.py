@@ -39,12 +39,7 @@ class DogAPIConnector:
 def _make_request(endpoint: str, method: str, headers: dict = None, data: dict = None):
     url = urljoin(DOG_API_BASE_URL, endpoint)
 
-    if method.upper() == "GET":
-        request_function = requests.get
-    else:
-        raise ValueError(f"Method {method} not supported!")
-
-    response = request_function(url, headers=headers, data=data)
+    response = requests.request(method.upper(), url, headers=headers, data=data)
     response.raise_for_status()
 
     return response.json()
