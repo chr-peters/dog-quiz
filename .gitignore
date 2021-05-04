@@ -7,3 +7,5 @@ __pycache__/
 
 # ignore all config files
 *.env
+
+.vscode/
