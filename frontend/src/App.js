@@ -4,6 +4,7 @@ import Quiz from "./Quiz";
 
 const useStyles = makeStyles((theme) => ({
   header: {
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(6),
   },
 }));
