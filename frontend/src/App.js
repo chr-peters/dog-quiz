@@ -1,5 +1,30 @@
+import { Container, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import Quiz from "./Quiz";
+
+const useStyles = makeStyles((theme) => ({
+  header: {
+    marginBottom: theme.spacing(6),
+  },
+}));
+
 function App() {
-  return <div>Hello, dog-quiz!</div>;
+  const classes = useStyles();
+
+  return (
+    <Container maxWidth="sm">
+      <Typography
+        className={classes.header}
+        variant="h3"
+        component="h1"
+        align="center"
+        noWrap
+      >
+        🐶Guess the dog!🐶
+      </Typography>
+      <Quiz />
+    </Container>
+  );
 }
 
 export default App;

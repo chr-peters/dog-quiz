@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -8,7 +9,9 @@ import "@fontsource/roboto/700.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CssBaseline>
+      <App />
+    </CssBaseline>
   </React.StrictMode>,
   document.getElementById("root")
 );
