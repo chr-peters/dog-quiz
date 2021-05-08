@@ -1,4 +1,5 @@
 import { Card, CardMedia, CardActions, Grid, Button } from "@material-ui/core";
+import { useState } from "react";
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -9,7 +10,34 @@ function shuffleArray(array) {
   }
 }
 
+function AnswerGroup({ answers, handleAnswer }) {
+  return (
+    <Grid container spacing={1}>
+      {answers.map((answer) => {
+        return (
+          <Grid item xs={6} key={answer}>
+            <Button
+              style={{ textTransform: "none" }}
+              variant="contained"
+              color="secondary"
+              fullWidth
+              onClick={() => handleAnswer(answer)}
+            >
+              {answer}
+            </Button>
+          </Grid>
+        );
+      })}
+    </Grid>
+  );
+}
+
+function Solution({ submittedAnswer, trueAnswer, nextQuestion }) {
+  return <div>Solution here...</div>;
+}
+
 function Question({ question, nextQuestion, updateScore }) {
+  const [displaySolution, setDisplaySolution] = useState(false);
   const allAnswers = question.wrong_answers.concat([question.true_answer]);
   shuffleArray(allAnswers);
 
@@ -19,7 +47,7 @@ function Question({ question, nextQuestion, updateScore }) {
     if (answer === question.true_answer) {
       updateScore();
     }
-    nextQuestion();
+    setDisplaySolution(true);
   }
 
   return (
@@ -30,23 +58,10 @@ function Question({ question, nextQuestion, updateScore }) {
         style={{ paddingTop: "56.25%", backgroundSize: "contain" }}
       />
       <CardActions>
-        <Grid container spacing={1}>
-          {allAnswers.map((answer) => {
-            return (
-              <Grid item xs={6} key={answer}>
-                <Button
-                  style={{ textTransform: "none" }}
-                  variant="contained"
-                  color="secondary"
-                  fullWidth
-                  onClick={() => handleAnswer(answer)}
-                >
-                  {answer}
-                </Button>
-              </Grid>
-            );
-          })}
-        </Grid>
+        {!displaySolution && (
+          <AnswerGroup answers={allAnswers} handleAnswer={handleAnswer} />
+        )}
+        {displaySolution && <Solution />}
       </CardActions>
     </Card>
   );
