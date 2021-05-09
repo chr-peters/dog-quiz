@@ -8,6 +8,7 @@ import {
   Container,
 } from "@material-ui/core";
 import { useState } from "react";
+const indefinite = require("indefinite");
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -53,7 +54,9 @@ function Solution({
           ? "You're right! 🥳"
           : "That's not correct. 😢"}
       </Typography>
-      <Typography paragraph={true}>This is a {trueAnswer}.</Typography>
+      <Typography paragraph={true}>
+        This is {indefinite(trueAnswer)}.
+      </Typography>
       <Button
         onClick={nextQuestion}
         variant="contained"
