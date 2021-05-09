@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(6),
+    fontSize: "2.6rem",
   },
 }));
 
@@ -21,7 +22,7 @@ function App() {
         align="center"
         noWrap
       >
-        🐶Guess the dog!🐶
+        🐶 Guess the dog! 🐶
       </Typography>
       <Quiz />
     </Container>
