@@ -1,4 +1,12 @@
-import { Card, CardMedia, CardActions, Grid, Button } from "@material-ui/core";
+import {
+  Typography,
+  Card,
+  CardMedia,
+  CardActions,
+  Grid,
+  Button,
+  Container,
+} from "@material-ui/core";
 import { useState } from "react";
 
 function shuffleArray(array) {
@@ -32,12 +40,36 @@ function AnswerGroup({ answers, handleAnswer }) {
   );
 }
 
-function Solution({ submittedAnswer, trueAnswer, nextQuestion }) {
-  return <div>Solution here...</div>;
+function Solution({
+  submittedAnswer,
+  trueAnswer,
+  nextQuestion,
+  isLastQuestion,
+}) {
+  return (
+    <Container>
+      <Typography variant="h6" align="center" paragraph={true}>
+        {submittedAnswer === trueAnswer
+          ? "You're right! 🥳"
+          : "That's not correct. 😢"}
+      </Typography>
+      <Typography paragraph={true}>This is a {trueAnswer}.</Typography>
+      <Button
+        onClick={nextQuestion}
+        variant="contained"
+        color="secondary"
+        fullWidth
+      >
+        {isLastQuestion ? "See Results" : "Next Question"}
+      </Button>
+    </Container>
+  );
 }
 
-function Question({ question, nextQuestion, updateScore }) {
+function Question({ question, isLastQuestion, nextQuestion, updateScore }) {
   const [displaySolution, setDisplaySolution] = useState(false);
+  const [submittedAnswer, setSubmittedAnswer] = useState("");
+
   const allAnswers = question.wrong_answers.concat([question.true_answer]);
   shuffleArray(allAnswers);
 
@@ -47,7 +79,13 @@ function Question({ question, nextQuestion, updateScore }) {
     if (answer === question.true_answer) {
       updateScore();
     }
+    setSubmittedAnswer(answer);
     setDisplaySolution(true);
+  }
+
+  function handleNextQuestion() {
+    setDisplaySolution(false);
+    nextQuestion();
   }
 
   return (
@@ -61,7 +99,14 @@ function Question({ question, nextQuestion, updateScore }) {
         {!displaySolution && (
           <AnswerGroup answers={allAnswers} handleAnswer={handleAnswer} />
         )}
-        {displaySolution && <Solution />}
+        {displaySolution && (
+          <Solution
+            isLastQuestion={isLastQuestion}
+            submittedAnswer={submittedAnswer}
+            trueAnswer={question.true_answer}
+            nextQuestion={handleNextQuestion}
+          />
+        )}
       </CardActions>
     </Card>
   );

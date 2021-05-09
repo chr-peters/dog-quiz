@@ -18,6 +18,10 @@ function Quiz() {
     return <div>Loading screen here...</div>;
   }
 
+  if (currentQuestion >= quiz.length) {
+    return <div>Results screen here...</div>;
+  }
+
   return (
     <div>
       <Grid container>
@@ -34,6 +38,7 @@ function Quiz() {
       </Grid>
       <Question
         question={quiz[currentQuestion]}
+        isLastQuestion={currentQuestion === quiz.length - 1}
         nextQuestion={() => setCurrentQuestion(currentQuestion + 1)}
         updateScore={() => setCurrentScore(currentScore + 10)}
       />
