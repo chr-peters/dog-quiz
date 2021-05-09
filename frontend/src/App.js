@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
   header: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(6),
-    fontSize: "2.6rem",
   },
 }));
 
