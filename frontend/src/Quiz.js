@@ -2,6 +2,7 @@ import { CircularProgress, Typography, Grid } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import getQuiz from "./api";
 import Question from "./Question";
+import Summary from "./Summary";
 
 function Quiz() {
   const [quiz, setQuiz] = useState([]);
@@ -10,6 +11,13 @@ function Quiz() {
 
   function loadQuiz() {
     getQuiz().then((response) => setQuiz(response));
+  }
+
+  function restart() {
+    setQuiz([]);
+    setCurrentQuestion(0);
+    setCurrentScore(0);
+    loadQuiz();
   }
 
   useEffect(loadQuiz, []);
@@ -23,7 +31,7 @@ function Quiz() {
   }
 
   if (currentQuestion >= quiz.length) {
-    return <div>Results screen here...</div>;
+    return <Summary score={currentScore} restartHandler={restart} />;
   }
 
   return (
