@@ -1,4 +1,4 @@
-import { Typography, Grid } from "@material-ui/core";
+import { CircularProgress, Typography, Grid } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import getQuiz from "./api";
 import Question from "./Question";
@@ -15,7 +15,11 @@ function Quiz() {
   useEffect(loadQuiz, []);
 
   if (quiz.length === 0) {
-    return <div>Loading screen here...</div>;
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress color="secondary" />
+      </div>
+    );
   }
 
   if (currentQuestion >= quiz.length) {
