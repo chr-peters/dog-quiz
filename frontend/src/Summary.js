@@ -44,11 +44,9 @@ function Summary({ score, restartHandler }) {
   } else if (score <= 70) {
     text = "That's not bad. But you can do better!";
     imgUrl = "https://media.giphy.com/media/kBZBlLVlfECvOQAVno/source.gif";
-  } else if (score <= 90) {
-    text = "Great job! That's an almost perfect run!";
-    imgUrl = "https://media.giphy.com/media/kBZBlLVlfECvOQAVno/source.gif";
   } else {
-    text = "Perfection. You are a true dog expert.";
+    text = "Great job! You are the number one!";
+    imgUrl = "https://media.giphy.com/media/l0Ex3vQtX5VX2YtAQ/source.gif";
   }
   return (
     <SummaryTemplate
