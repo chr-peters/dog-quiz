@@ -26,3 +26,5 @@ urllib3==1.26.4
     # via requests
 werkzeug==2.0.0
     # via flask
+whitenoise==5.2.0
+    # via dog-quiz (setup.py)
