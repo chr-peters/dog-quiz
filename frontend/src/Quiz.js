@@ -1,4 +1,10 @@
-import { CircularProgress, Typography, Grid } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  CircularProgress,
+  Typography,
+  Grid,
+} from "@material-ui/core";
 import { useEffect, useState } from "react";
 import getQuiz from "./api";
 import Question from "./Question";
@@ -8,19 +14,43 @@ function Quiz() {
   const [quiz, setQuiz] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
+  const [error, setError] = useState(false);
 
   function loadQuiz() {
-    getQuiz().then((response) => setQuiz(response));
+    getQuiz()
+      .then((response) => {
+        setQuiz(response);
+      })
+      .catch((error) => setError(true));
   }
 
   function restart() {
     setQuiz([]);
     setCurrentQuestion(0);
     setCurrentScore(0);
+    setError(false);
     loadQuiz();
   }
 
   useEffect(loadQuiz, []);
+
+  if (error) {
+    return (
+      <Container>
+        <Typography variant="h6" component="div" align="center" paragraph>
+          Ooops, something went wrong!
+        </Typography>
+        <Button
+          onClick={restart}
+          color="secondary"
+          variant="contained"
+          style={{ marginLeft: "auto", marginRight: "auto", display: "block" }}
+        >
+          Try again
+        </Button>
+      </Container>
+    );
+  }
 
   if (quiz.length === 0) {
     return (
