@@ -45,7 +45,7 @@ function Summary({ score, restartHandler }) {
     text = "That's not bad. But you can do better!";
     imgUrl = "https://media.giphy.com/media/kBZBlLVlfECvOQAVno/source.gif";
   } else {
-    text = "Great job! You are the number one!";
+    text = "Great job! You are a true dog expert.";
     imgUrl = "https://media.giphy.com/media/l0Ex3vQtX5VX2YtAQ/source.gif";
   }
   return (

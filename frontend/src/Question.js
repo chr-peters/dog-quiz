@@ -76,8 +76,6 @@ function Question({ question, isLastQuestion, nextQuestion, updateScore }) {
   const allAnswers = question.wrong_answers.concat([question.true_answer]);
   shuffleArray(allAnswers);
 
-  console.log(question.true_answer);
-
   function handleAnswer(answer) {
     if (answer === question.true_answer) {
       updateScore();
